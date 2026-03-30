@@ -251,41 +251,60 @@
       </div>
     </div>
 
-    <div class="screen" id="s-fitness">
+  <div class="screen" id="s-fitness">
       <div class="screen-header">
         <div class="screen-title">Build Your <em>Workout</em></div>
         <div class="screen-sub">Choose your style — Risn AI does the rest</div>
       </div>
+      
       <div class="slabel pad">Step 1 · Your Style</div>
       <div class="type-grid">
-        <div class="type-card selected">
-          <div class="type-check">✓</div>
+        <div class="type-card selected" id="type-weights" onclick="selType('weights')">
+          <div class="type-check" id="tc-weights">✓</div>
           <div class="type-inner">
             <div class="type-icon-wrap">🏋️</div>
-            <div class="type-body"><div class="type-name">Old-School Weights</div><div class="type-desc">Barbells, dumbbells, machines. Classic iron with progressive overload.</div></div>
+            <div class="type-body"><div class="type-name">Weighted Workouts</div><div class="type-desc">Barbells, dumbbells, machines. Classic iron with progressive overload.</div></div>
           </div>
         </div>
       </div>
       
-      <div class="split-sec vis">
+      <div class="split-sec vis" id="splitSec">
         <div class="slabel" style="margin-bottom:10px">Step 2 · Your Split</div>
         <div class="split-grid">
-          <div class="split-card selected"><div class="split-check">✓</div><span class="split-icon">🔄</span><div class="split-name">Push / Pull / Legs</div></div>
-          <div class="split-card"><span class="split-icon">💪</span><div class="split-name">Full Body</div></div>
+          <div class="split-card selected" id="sp-2part" onclick="selSplit('2part')">
+            <div class="split-check" id="sc-2part">✓</div>
+            <span class="split-icon">✌️</span>
+            <div class="split-name">2 Body Parts a Day</div>
+            <div class="split-detail">3-6x a week. (e.g. Chest/Tris, Back/Bis)</div>
+          </div>
+          <div class="split-card" id="sp-pushpull" onclick="selSplit('pushpull')">
+            <div class="split-check" id="sc-pushpull"></div>
+            <span class="split-icon">🔄</span>
+            <div class="split-name">Push / Pull / Full</div>
+            <div class="split-detail">3 days. Push, pull, or full body.</div>
+          </div>
+          <div class="split-card full" id="sp-single" onclick="selSplit('single')">
+            <div class="split-check" id="sc-single"></div>
+            <span class="split-icon">🎯</span>
+            <div>
+              <div class="split-name">Single Body Part</div>
+              <div class="split-detail">Max isolation per session. Classic bro split.</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="level-sec vis">
+      <div class="level-sec vis" id="levelSec">
         <div class="slabel" style="margin-bottom:10px">Step 3 · Experience Level</div>
         <div class="level-row">
-          <div class="lvl-btn"><span class="lvl-emoji">🌱</span><div class="lvl-name">Beginner</div></div>
-          <div class="lvl-btn selected"><span class="lvl-emoji">🔥</span><div class="lvl-name">Intermediate</div></div>
-          <div class="lvl-btn"><span class="lvl-emoji">⚡</span><div class="lvl-name">Advanced</div></div>
+          <div class="lvl-btn" id="lv-beginner" onclick="selLevel('beginner')"><span class="lvl-emoji">🌱</span><div class="lvl-name">Beginner</div></div>
+          <div class="lvl-btn selected" id="lv-intermediate" onclick="selLevel('intermediate')"><span class="lvl-emoji">🔥</span><div class="lvl-name">Intermediate</div></div>
+          <div class="lvl-btn" id="lv-advanced" onclick="selLevel('advanced')"><span class="lvl-emoji">⚡</span><div class="lvl-name">Advanced</div></div>
         </div>
       </div>
 
-      <div class="gen-sec vis">
-        <button class="gen-btn">Generate My Workout →</button>
+      <div class="gen-sec vis" id="genSec">
+        <button class="gen-btn" onclick="generateWorkout()">Generate My Workout →</button>
       </div>
       
       <div style="padding: 0 20px;">
