@@ -14,7 +14,6 @@
 <div class="phone" id="app">
 
   <div class="ob-screen" id="onboarding-flow" style="display: flex;">
-    
     <div class="ob-step active" id="ob-1">
       <div class="ob-hero" style="margin-top: auto; margin-bottom: auto;">
         <div class="ob-headline" style="font-size: 38px;">"The comeback is always greater than the setback."</div>
@@ -105,7 +104,6 @@
          <input type="number" class="ob-input" placeholder="Age" style="margin-bottom: 10px;">
          <input type="number" class="ob-input" placeholder="Current Weight (lbs)" style="margin-bottom: 10px;">
          <input type="number" class="ob-input" placeholder="Target Weight (lbs)" style="margin-bottom: 20px;">
-         
          <div id="economy-preview" style="background: var(--surface2); padding: 15px; border-radius: 15px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Target Zone Generated</div>
             <div style="font-size: 24px; font-weight: bold; color: var(--accent); margin-top: 5px;">1,800 <span style="font-size: 14px; color: var(--text-dim);">Floor</span> - 2,300 <span style="font-size: 14px; color: var(--text-dim);">Ceiling</span></div>
@@ -144,10 +142,155 @@
   </div>
 
   <div class="screens">
-    <div class="screen" id="s-home">...</div>
     
+    <div class="screen" id="s-home">
+      <div class="home-hero">
+        <div class="home-greeting">Welcome back</div>
+        <div class="home-title">Ready to<br><em>rise today?</em></div>
+        <div class="streak-row">
+          <div class="streak-badge">🔥 14-day streak</div>
+          <div class="pill"><div class="pill-dot"></div>Live score</div>
+        </div>
+      </div>
+
+      <div class="xp-bar-wrap card-hover" id="xpBarWrap">
+        <div class="xp-top">
+          <div class="xp-level-badge">
+            <span class="xp-level-ico" id="xpIco">⚡</span>
+            <div>
+              <div class="xp-level-txt" id="xpLevelName">Level 7 — <em style="font-style:italic;color:var(--gold)">Riser</em></div>
+              <div class="xp-level-sub" id="xpNextName">Next: Level 8 · Grinder</div>
+            </div>
+          </div>
+          <div class="xp-nums"><span id="xpCurrent">2,340</span> / <span id="xpNext">3,000</span> XP</div>
+        </div>
+        <div class="xp-track"><div class="xp-fill" id="xpFill" style="width:78%"></div></div>
+        <div class="xp-next" id="xpNextTxt">+50 XP per habit · +100 XP for perfect day 🔥</div>
+      </div>
+
+      <div class="home-content-grid">
+        <div class="stat-scroll-wrap">
+          <div class="stat-scroll">
+            <div class="stat-chip" onclick="switchTab('nutrition')"><div class="sc-icon">💧</div><div class="sc-val">6/8</div><div class="sc-lbl">Hydration</div></div>
+            <div class="stat-chip" onclick="switchTab('rise')"><div class="sc-icon">😴</div><div class="sc-val">7h20</div><div class="sc-lbl">Sleep</div></div>
+            <div class="stat-chip" onclick="switchTab('fitness')"><div class="sc-icon">🚶</div><div class="sc-val">6.2k</div><div class="sc-lbl">Steps</div></div>
+            <div class="stat-chip" onclick="switchTab('nutrition')"><div class="sc-icon">🍽️</div><div class="sc-val">1,840</div><div class="sc-lbl">Calories</div></div>
+            <div class="stat-chip" onclick="switchTab('coach')"><div class="sc-icon">🧘</div><div class="sc-val">10m</div><div class="sc-lbl">Mindful</div></div>
+          </div>
+        </div>
+
+        <div class="home-col-left">
+          <div class="score-ring-card card-hover">
+            <div class="rings-row">
+              <div class="ring-wrap" style="position:relative">
+                <div class="score-delta">↑ +4</div>
+                <svg class="ring-svg" viewBox="0 0 100 100">
+                  <circle class="ring-bg" cx="50" cy="50" r="44"/>
+                  <circle class="ring-glow" cx="50" cy="50" r="44" id="ringGlow"/>
+                  <circle class="ring-fill" cx="50" cy="50" r="44" id="mainRingFill"/>
+                </svg>
+                <div class="ring-center"><div class="ring-num" id="scoreNum">82</div><div class="ring-lbl">Risn Score</div></div>
+              </div>
+              <div class="pillars-col">
+                <div class="pillar-row"><div class="p-name">Mind</div><div class="p-track"><div class="p-fill" style="width:88%;background:var(--accent)"></div></div><div class="p-val">88</div></div>
+                <div class="pillar-row"><div class="p-name">Body</div><div class="p-track"><div class="p-fill" style="width:76%;background:var(--gold)"></div></div><div class="p-val">76</div></div>
+                <div class="pillar-row"><div class="p-name">Habit</div><div class="p-track"><div class="p-fill" style="width:91%;background:var(--accent)"></div></div><div class="p-val">91</div></div>
+                <div class="pillar-row"><div class="p-name">Nutr.</div><div class="p-track"><div class="p-fill" style="width:79%;background:var(--orange)"></div></div><div class="p-val">79</div></div>
+                <div class="pillar-row"><div class="p-name">Rest</div><div class="p-track"><div class="p-fill" style="width:73%;background:var(--blue)"></div></div><div class="p-val">73</div></div>
+              </div>
+            </div>
+            <div class="score-footer">
+              <div class="sf-item"><div class="sf-val" style="color:var(--accent)">↑ +4</div><div class="sf-lbl">Today</div></div>
+              <div class="sf-item"><div class="sf-val" style="color:var(--gold)">🔥 14</div><div class="sf-lbl">Streak</div></div>
+              <div class="sf-item"><div class="sf-val" style="color:var(--blue)">78</div><div class="sf-lbl">Avg Week</div></div>
+              <div class="sf-item"><div class="sf-val" style="color:var(--orange)">1,840</div><div class="sf-lbl">Calories</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-col-right">
+          <div class="nutrition-preview card-hover" onclick="switchNav('nutrition', document.querySelectorAll('.nav-item')[2])">
+            <div class="np-header">
+              <div class="np-title">🍎 Today's Nutrition</div>
+              <div class="np-cals">1,840 / 2,300 kcal</div>
+            </div>
+            <div class="np-bars">
+              <div class="np-bar-row"><div class="np-bar-lbl" style="color:var(--blue)">Protein</div><div class="np-track"><div class="np-fill" style="width:71%;background:var(--blue)"></div></div><div class="np-val">142/200g</div></div>
+              <div class="np-bar-row"><div class="np-bar-lbl" style="color:var(--gold)">Carbs</div><div class="np-track"><div class="np-fill" style="width:79%;background:var(--gold)"></div></div><div class="np-val">220/280g</div></div>
+              <div class="np-bar-row"><div class="np-bar-lbl" style="color:var(--red)">Fat</div><div class="np-track"><div class="np-fill" style="width:73%;background:var(--red)"></div></div><div class="np-val">58/80g</div></div>
+            </div>
+          </div>
+
+          <div class="habits-section">
+            <div class="habits-header">
+              <div class="slabel" style="margin:0">Today's Habits</div>
+              <div class="add-btn">+</div>
+            </div>
+            <div class="habit-item done">
+              <div class="hcheck">✓</div>
+              <div class="h-info"><div class="h-name">Morning Meditation</div><div class="h-meta">🔥 14-day streak · Done 7:12 AM</div></div>
+              <div class="h-xp">+50 XP</div>
+            </div>
+            <div class="habit-item done">
+              <div class="hcheck">✓</div>
+              <div class="h-info"><div class="h-name">Gratitude Journal</div><div class="h-meta">🔥 9-day streak · Done 7:30 AM</div></div>
+              <div class="h-xp">+50 XP</div>
+            </div>
+            <div class="habit-item">
+              <div class="hcheck"></div>
+              <div class="h-info"><div class="h-name">Afternoon Walk</div><div class="h-meta">6-day streak · Not yet</div></div>
+              <div class="h-xp">+50 XP</div>
+            </div>
+            <div class="habit-item">
+              <div class="hcheck"></div>
+              <div class="h-info"><div class="h-name">No Phone After 9PM</div><div class="h-meta">3-day streak · Not yet</div></div>
+              <div class="h-xp">+50 XP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="screen" id="s-fitness">
-      <button id="failure-mandate-btn" class="ob-btn" style="background: var(--red); display: none; margin-top: 15px;" onpointerdown="triggerFailureHaptic()">Failure Mandate: Leave Nothing</button>
+      <div class="screen-header">
+        <div class="screen-title">Build Your <em>Workout</em></div>
+        <div class="screen-sub">Choose your style — Risn AI does the rest</div>
+      </div>
+      <div class="slabel pad">Step 1 · Your Style</div>
+      <div class="type-grid">
+        <div class="type-card selected">
+          <div class="type-check">✓</div>
+          <div class="type-inner">
+            <div class="type-icon-wrap">🏋️</div>
+            <div class="type-body"><div class="type-name">Old-School Weights</div><div class="type-desc">Barbells, dumbbells, machines. Classic iron with progressive overload.</div></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="split-sec vis">
+        <div class="slabel" style="margin-bottom:10px">Step 2 · Your Split</div>
+        <div class="split-grid">
+          <div class="split-card selected"><div class="split-check">✓</div><span class="split-icon">🔄</span><div class="split-name">Push / Pull / Legs</div></div>
+          <div class="split-card"><span class="split-icon">💪</span><div class="split-name">Full Body</div></div>
+        </div>
+      </div>
+
+      <div class="level-sec vis">
+        <div class="slabel" style="margin-bottom:10px">Step 3 · Experience Level</div>
+        <div class="level-row">
+          <div class="lvl-btn"><span class="lvl-emoji">🌱</span><div class="lvl-name">Beginner</div></div>
+          <div class="lvl-btn selected"><span class="lvl-emoji">🔥</span><div class="lvl-name">Intermediate</div></div>
+          <div class="lvl-btn"><span class="lvl-emoji">⚡</span><div class="lvl-name">Advanced</div></div>
+        </div>
+      </div>
+
+      <div class="gen-sec vis">
+        <button class="gen-btn">Generate My Workout →</button>
+      </div>
+      
+      <div style="padding: 0 20px;">
+        <button id="failure-mandate-btn" class="ob-btn" style="background: var(--red); width: 100%; margin-top: 15px;" onpointerdown="triggerFailureHaptic()">Failure Mandate: Leave Nothing</button>
+      </div>
     </div>
 
     <div class="screen" id="s-nutrition">
@@ -156,7 +299,43 @@
           <button class="ntab" onclick="switchNutrTab('vault',this)">Volume Vault</button>
        </div>
        
-       <div class="nview active" id="nv-today">...</div>
+       <div class="nview active" id="nv-today">
+         <div class="nutr-dashboard">
+           <div class="nd-top">
+             <div class="nd-ring-wrap">
+               <svg class="nd-ring-svg" viewBox="0 0 100 100">
+                 <circle class="nd-ring-bg" cx="50" cy="50" r="44"/>
+                 <circle class="nd-ring-fill" cx="50" cy="50" r="44" id="calRing" style="stroke-dashoffset: 97;"/>
+               </svg>
+               <div class="nd-ring-center">
+                 <div class="nd-cal-num" id="calConsumed">1,840</div>
+                 <div class="nd-cal-lbl">eaten</div>
+               </div>
+             </div>
+             <div class="nd-summary">
+               <div class="nd-cal-row">
+                 <div class="nd-cal-item"><div class="nd-cal-val" style="color:var(--accent)">2,300</div><div class="nd-cal-sub">Ceiling</div></div>
+                 <div class="nd-cal-item"><div class="nd-cal-val" style="color:var(--gold)">1,840</div><div class="nd-cal-sub">Eaten</div></div>
+                 <div class="nd-cal-item"><div class="nd-cal-val" style="color:var(--blue)">460</div><div class="nd-cal-sub">Left</div></div>
+               </div>
+               <div class="nd-macros">
+                 <div class="nd-macro-row"><div class="nd-macro-lbl" style="color:var(--blue)">P</div><div class="nd-macro-track"><div class="nd-macro-fill" style="width:71%;background:var(--blue)"></div></div></div>
+                 <div class="nd-macro-row"><div class="nd-macro-lbl" style="color:var(--gold)">C</div><div class="nd-macro-track"><div class="nd-macro-fill" style="width:79%;background:var(--gold)"></div></div></div>
+                 <div class="nd-macro-row"><div class="nd-macro-lbl" style="color:var(--red)">F</div><div class="nd-macro-track"><div class="nd-macro-fill" style="width:73%;background:var(--red)"></div></div></div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <div class="log-btns">
+           <button class="log-btn primary" onclick="openModal('search')"><span class="log-btn-icon">🔍</span> Search Food</button>
+           <button class="log-btn" onclick="openModal('photo')"><span class="log-btn-icon">📸</span> Barcode Scan (PRO)</button>
+         </div>
+
+         <div style="padding: 0 20px;">
+           <input type="text" class="ob-input" placeholder="Search food (try typing 'burger' or 'sub')..." oninput="searchFood(this.value)">
+         </div>
+       </div>
        
        <div class="nview" id="nv-vault">
           <div class="screen-header">
@@ -170,9 +349,23 @@
               <div class="food-icon" style="font-size: 24px;">🥞</div>
               <div class="food-info">
                 <div class="food-name" style="font-size: 16px;">Anabolic French Toast</div>
+                <div class="food-serving">Secret Hack</div>
                 <div class="food-macros" style="margin-top: 8px;">
                    <span class="fm-chip fm-cal">320 kcal</span>
                    <span class="fm-chip fm-p">P: 40g</span>
+                </div>
+              </div>
+              <button class="ob-btn" style="width: auto; padding: 8px 15px; font-size: 11px;">1-Tap Log</button>
+            </div>
+
+            <div class="food-item" style="padding: 15px;">
+              <div class="food-icon" style="font-size: 24px;">🍟</div>
+              <div class="food-info">
+                <div class="food-name" style="font-size: 16px;">Air Fryer KFC Beater</div>
+                <div class="food-serving">Massive Volume</div>
+                <div class="food-macros" style="margin-top: 8px;">
+                   <span class="fm-chip fm-cal">450 kcal</span>
+                   <span class="fm-chip fm-p">P: 65g</span>
                 </div>
               </div>
               <button class="ob-btn" style="width: auto; padding: 8px 15px; font-size: 11px;">1-Tap Log</button>
@@ -181,9 +374,60 @@
        </div>
     </div>
 
-    <div class="screen" id="s-coach">...</div>
+    <div class="screen" id="s-coach">
+      <div class="screen-header">
+        <div class="screen-title">Rise <em>Content</em></div>
+        <div class="screen-sub">Wisdom · Protocols · Weekly drops</div>
+      </div>
+      <div class="coaching-cta">
+        <div class="cta-glow"></div>
+        <div class="cta-badge">✦ THE MASTERMIND</div>
+        <div class="cta-title">Absolute<br><em>Control</em></div>
+        <div class="cta-sub">Read the 15-year journey from fat addict to jacked non-addict. Unlock your full potential.</div>
+        <button class="cta-btn">Read The E-Book Natively →</button>
+      </div>
 
-    <div class="screen" id="s-community">...</div>
+      <div class="content-section-lbl">✦ Founder's Protocols</div>
+      <div class="tip-cards">
+        <div class="tip-card">
+          <div class="tip-header">
+            <div class="tip-tag" style="background:rgba(100,255,180,0.1);color:var(--accent)">🏋️ Training</div>
+            <div class="tip-week">This Week</div>
+          </div>
+          <div class="tip-title">The Rep You Almost Skip Is The One That Changes You</div>
+          <div class="tip-body">Every set has a point where your brain says stop before your body needs to. That gap is exactly where growth lives. Leave absolutely nothing in the tank.</div>
+          <div class="tip-author"><div class="tip-av">C</div><div>Christopher · Founder</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen" id="s-community">
+      <div class="community-header">
+        <div class="comm-title">The <em>Mastermind</em></div>
+        <div class="comm-sub">Surround yourself with winners.</div>
+      </div>
+      <div class="post-composer">
+        <div class="pc-top">
+          <div class="pc-avatar">C</div>
+          <textarea class="pc-input" placeholder="Share a win, ask a question, or submit a Volume Hack..."></textarea>
+        </div>
+        <div class="pc-actions">
+          <button class="pc-post-btn">Post to Community</button>
+        </div>
+      </div>
+      <div class="feed">
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-avatar" style="background: var(--blue);">M</div>
+            <div class="post-user-info">
+              <div class="post-username">Marcus</div>
+              <div class="post-meta">Level 9 Grinder · 2 hrs ago</div>
+            </div>
+          </div>
+          <div class="post-body">Just hit the Failure Mandate on my last set of squats. Thought of my anchor and pushed through two more reps. The mental armor is real.</div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -196,8 +440,10 @@
   </div>
 
 </div>
-  <script src="js/app.js"></script>
-  <script src="js/risn-engine.js"></script>
-  <script src="js/native.js"></script>
+
+<script src="js/app.js"></script>
+<script src="js/risn-engine.js"></script>
+<script src="js/native.js"></script>
+
 </body>
 </html>
