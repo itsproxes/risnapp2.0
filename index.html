@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0f14">
+  <title>Risn — Rise Every Day</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="phone" id="app">
+
+  <div class="ob-screen" id="onboarding-flow" style="display: flex;">
+    
+    <div class="ob-step active" id="ob-1">
+      <div class="ob-hero" style="margin-top: auto; margin-bottom: auto;">
+        <div class="ob-headline" style="font-size: 38px;">"The comeback is always greater than the setback."</div>
+      </div>
+      <div class="ob-footer">
+        <button class="ob-btn" onclick="nextObStep(2)">Take Control</button>
+      </div>
+    </div>
+
+    <div class="ob-step" id="ob-2">
+      <div class="ob-hero">
+        <div class="ob-headline">Everyone has a starting point.</div>
+        <div class="ob-sub">What brought you here today?</div>
+      </div>
+      <div class="ob-body">
+        <div class="ob-options">
+          <div class="ob-option" onclick="selectObOption(this)">
+            <div class="ob-opt-name">I am tired of feeling weak or overlooked.</div>
+          </div>
+          <div class="ob-option" onclick="selectObOption(this)">
+            <div class="ob-opt-name">I lost my discipline and need to rebuild.</div>
+          </div>
+          <div class="ob-option" onclick="selectObOption(this)">
+            <div class="ob-opt-name">I hit a plateau and need the ultimate system.</div>
+          </div>
+          <div class="ob-option" onclick="selectObOption(this, true)">
+            <div class="ob-opt-name">Custom (Write your own)</div>
+          </div>
+        </div>
+      </div>
+      <div class="ob-footer">
+        <button class="ob-btn" onclick="nextObStep(3)">Continue</button>
+      </div>
+    </div>
+
+    <div class="ob-step" id="ob-3">
+      <div class="ob-hero">
+        <div class="ob-headline">Discipline needs an Anchor.</div>
+        <div class="ob-sub">Why are you really doing this?</div>
+      </div>
+      <div class="ob-body">
+        <div class="ob-options">
+          <div class="ob-option" onclick="selectObOption(this, false, true)">
+            <div class="ob-opt-name">To be strong enough to take care of my family.</div>
+          </div>
+          <div class="ob-option" onclick="selectObOption(this, false, true)">
+            <div class="ob-opt-name">To reclaim my health and build an unbreakable body.</div>
+          </div>
+          <div class="ob-option" onclick="selectObOption(this, false, true)">
+            <div class="ob-opt-name">To prove to myself that I can.</div>
+          </div>
+          <div class="ob-option" onclick="selectObOption(this, true, true)">
+            <div class="ob-opt-name">Custom (Write your own)</div>
+          </div>
+        </div>
+        <div id="anchor-photo-upload" style="display: none; text-align: center; margin-top: 20px;">
+          <div class="pz-icon">📸</div>
+          <div class="pz-title">Upload your Anchor Photo</div>
+          <div class="pz-sub">This will become your Mental Armor lock screen.</div>
+          <button class="ob-btn" style="margin-top: 10px; background: var(--surface2);" onclick="triggerNativeCamera()">Select Photo</button>
+        </div>
+      </div>
+      <div class="ob-footer">
+        <button class="ob-btn" onclick="nextObStep(4)">Continue</button>
+      </div>
+    </div>
+
+    <div class="ob-step" id="ob-4">
+      <div class="ob-hero">
+        <div class="ob-headline" style="color: var(--red);">The Risn Mandate</div>
+      </div>
+      <div class="ob-body" style="text-align: center;">
+        <p style="font-size: 16px; line-height: 1.8; color: var(--text-dim);">You will leave your ego at the door.</p>
+        <p style="font-size: 16px; line-height: 1.8; color: var(--text-dim);">You will be 100% honest with the math.</p>
+        <p style="font-size: 16px; line-height: 1.8; color: var(--text-dim);">You will leave absolutely nothing in the tank on your final set.</p>
+      </div>
+      <div class="ob-footer">
+        <button class="ob-btn" id="mandate-btn" style="background: var(--surface2); color: var(--text-muted);" onpointerdown="holdMandateStart()" onpointerup="holdMandateEnd()">Hold to Accept</button>
+      </div>
+    </div>
+
+    <div class="ob-step" id="ob-5">
+      <div class="ob-hero">
+        <div class="ob-headline">Your Calorie Economy</div>
+        <div class="ob-sub">Set your baseline metrics.</div>
+      </div>
+      <div class="ob-body">
+         <input type="number" class="ob-input" placeholder="Age" style="margin-bottom: 10px;">
+         <input type="number" class="ob-input" placeholder="Current Weight (lbs)" style="margin-bottom: 10px;">
+         <input type="number" class="ob-input" placeholder="Target Weight (lbs)" style="margin-bottom: 20px;">
+         
+         <div id="economy-preview" style="background: var(--surface2); padding: 15px; border-radius: 15px; text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Target Zone Generated</div>
+            <div style="font-size: 24px; font-weight: bold; color: var(--accent); margin-top: 5px;">1,800 <span style="font-size: 14px; color: var(--text-dim);">Floor</span> - 2,300 <span style="font-size: 14px; color: var(--text-dim);">Ceiling</span></div>
+         </div>
+      </div>
+      <div class="ob-footer">
+        <button class="ob-btn" onclick="finishOnboarding()">Enter Ecosystem</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="swap-interceptor-modal">
+    <div class="modal-content" style="margin-top: auto; background: var(--surface); padding: 24px; border-top-left-radius: 24px; border-top-right-radius: 24px;">
+      <div style="font-size: 10px; color: var(--accent); text-transform: uppercase; font-weight: bold; letter-spacing: 0.1em; margin-bottom: 10px;">✦ Tactical Intercept</div>
+      <div class="modal-title" id="swap-title" style="font-size: 28px; margin-bottom: 10px;">Swap Not Stop</div>
+      <div id="swap-body" style="font-size: 14px; line-height: 1.6; color: var(--text-dim); margin-bottom: 20px;">
+        Dropping the diced onions and pickles on that burger, or swapping standard mayo for a side packet, cuts hidden fats. Protect the deficit.
+      </div>
+      <button class="ob-btn" onclick="applySwap()">Apply Hack & Log</button>
+      <button class="ob-btn" style="background: transparent; color: var(--text-muted); margin-top: 10px;" onclick="closeModal('swap-interceptor-modal')">Ignore & Log Anyway</button>
+    </div>
+  </div>
+
+  <div class="modal" id="weight-check-modal">
+    <div class="modal-content" style="margin-top: auto; background: var(--surface); padding: 24px; border-top-left-radius: 24px; border-top-right-radius: 24px;">
+      <div class="modal-title" style="font-size: 28px; margin-bottom: 10px; color: var(--red);">Variable vs. Lie</div>
+      <div style="font-size: 14px; line-height: 1.6; color: var(--text-dim); margin-bottom: 20px;">
+        The scale went up. You did not gain 3 pounds of fat overnight. Evaluate the data.
+      </div>
+      <div class="ob-options">
+        <div class="ob-option" onclick="logWeightVariable('water')">Variable: Water retention / Bloat</div>
+        <div class="ob-option" onclick="logWeightVariable('digestion')">Variable: Heavy meal digesting</div>
+        <div class="ob-option" onclick="logWeightLie()">Lie: I mistracked calories yesterday</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screens">
+    <div class="screen" id="s-home">...</div>
+    
+    <div class="screen" id="s-fitness">
+      <button id="failure-mandate-btn" class="ob-btn" style="background: var(--red); display: none; margin-top: 15px;" onpointerdown="triggerFailureHaptic()">Failure Mandate: Leave Nothing</button>
+    </div>
+
+    <div class="screen" id="s-nutrition">
+       <div class="nutr-tabs">
+          <button class="ntab active" onclick="switchNutrTab('today',this)">Today</button>
+          <button class="ntab" onclick="switchNutrTab('vault',this)">Volume Vault</button>
+       </div>
+       
+       <div class="nview active" id="nv-today">...</div>
+       
+       <div class="nview" id="nv-vault">
+          <div class="screen-header">
+            <div class="screen-title">The Volume <em>Vault</em></div>
+            <div class="screen-sub">Massive meals. Zero guilt.</div>
+          </div>
+          <div class="pad">
+            <button class="ob-btn" style="background: var(--surface2); color: var(--accent); margin-bottom: 15px;" onclick="openSubmitHack()">+ Submit a Hack (PRO)</button>
+            
+            <div class="food-item" style="padding: 15px;">
+              <div class="food-icon" style="font-size: 24px;">🥞</div>
+              <div class="food-info">
+                <div class="food-name" style="font-size: 16px;">Anabolic French Toast</div>
+                <div class="food-macros" style="margin-top: 8px;">
+                   <span class="fm-chip fm-cal">320 kcal</span>
+                   <span class="fm-chip fm-p">P: 40g</span>
+                </div>
+              </div>
+              <button class="ob-btn" style="width: auto; padding: 8px 15px; font-size: 11px;">1-Tap Log</button>
+            </div>
+          </div>
+       </div>
+    </div>
+
+    <div class="screen" id="s-coach">...</div>
+
+    <div class="screen" id="s-community">...</div>
+
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active" onclick="switchNav('home', this)"><div class="nav-icon">🔥</div><div class="nav-label">Home</div><div class="nav-dot"></div></div>
+    <div class="nav-item" onclick="switchNav('fitness', this)"><div class="nav-icon">🏋️</div><div class="nav-label">Train</div><div class="nav-dot"></div></div>
+    <div class="nav-item" onclick="switchNav('nutrition', this)"><div class="nav-icon">🍗</div><div class="nav-label">Fuel</div><div class="nav-dot"></div></div>
+    <div class="nav-item" onclick="switchNav('coach', this)"><div class="nav-icon">🧠</div><div class="nav-label">Coach</div><div class="nav-dot"></div></div>
+    <div class="nav-item" onclick="switchNav('community', this)"><div class="nav-icon">🌐</div><div class="nav-label">Squad</div><div class="nav-dot"></div></div>
+  </div>
+
+</div>
+  <script src="js/app.js"></script>
+  <script src="js/risn-engine.js"></script>
+  <script src="js/native.js"></script>
+</body>
+</html>
