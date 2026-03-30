@@ -6,65 +6,33 @@ let mandateHoldTimer;
 let mandateHeld = false;
 
 function nextObStep(stepNumber) {
-    // Hide current
     document.getElementById(`ob-${currentObStep}`).classList.remove('active');
-    // Show next
     currentObStep = stepNumber;
     document.getElementById(`ob-${currentObStep}`).classList.add('active');
 }
 
 function selectObOption(element, isCustom = false, isAnchor = false) {
-    // Remove selected class from siblings
     const siblings = element.parentElement.children;
-    for(let sibling of siblings) {
-        sibling.classList.remove('selected');
-    }
-    // Add to clicked
+    for(let sibling of siblings) { sibling.classList.remove('selected'); }
     element.classList.add('selected');
-
-    // If this is the Anchor screen (Step 3), show the native camera upload prompt
-    if(isAnchor) {
-        document.getElementById('anchor-photo-upload').style.display = 'block';
-    }
+    if(isAnchor) { document.getElementById('anchor-photo-upload').style.display = 'block'; }
 }
 
-// Simulated Native Camera Hook (Will be replaced by Capacitor Camera plugin)
-function triggerNativeCamera() {
-    alert("NATIVE HOOK: Opening Android Camera/Gallery to select Anchor Photo.");
-    // Simulate photo selected
-    const uploadDiv = document.getElementById('anchor-photo-upload');
-    uploadDiv.innerHTML = `
-        <div style="width: 80px; height: 80px; border-radius: 12px; background: var(--surface2); margin: 0 auto 10px auto; overflow: hidden; display:flex; align-items:center; justify-content:center;">
-            <span>📸 Set</span>
-        </div>
-        <div class="pz-title" style="color: var(--green);">Mental Armor Locked</div>
-    `;
-}
-
-// ------------------------------------------
-// The Mandate Hold Button (Step 4)
-// ------------------------------------------
 function holdMandateStart() {
     const btn = document.getElementById('mandate-btn');
     btn.style.transform = 'scale(0.95)';
     btn.style.background = 'var(--red)';
     btn.style.color = 'var(--text)';
     btn.innerText = 'Holding...';
-    
-    // Trigger initial haptic (Simulated)
     if(navigator.vibrate) navigator.vibrate(50);
 
     mandateHoldTimer = setTimeout(() => {
         mandateHeld = true;
         btn.innerText = 'Mandate Accepted';
         btn.style.background = 'var(--green)';
-        // Trigger massive haptic confirmation
         if(navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
-        
-        setTimeout(() => {
-            nextObStep(5);
-        }, 800);
-    }, 1500); // Requires 1.5 second hold
+        setTimeout(() => { nextObStep(5); }, 800);
+    }, 1500); 
 }
 
 function holdMandateEnd() {
@@ -80,66 +48,124 @@ function holdMandateEnd() {
 
 function finishOnboarding() {
     document.getElementById('onboarding-flow').style.display = 'none';
-    // By default, activate home screen
     document.getElementById('s-home').classList.add('active');
 }
 
 // ==========================================
-// 2. CORE NAVIGATION & UI STATE
+// 2. CORE NAVIGATION & UI INTERACTIVITY
 // ==========================================
-
 function switchNav(targetScreen, navElement) {
-    // Reset bottom nav active states
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => item.classList.remove('active'));
-    navElement.classList.add('active');
+    if(navElement) navElement.classList.add('active');
 
-    // Hide all screens
     const screens = document.querySelectorAll('.screen');
     screens.forEach(screen => screen.classList.remove('active'));
-
-    // Show target
     document.getElementById(`s-${targetScreen}`).classList.add('active');
-    
-    // Light haptic feedback
     if(navigator.vibrate) navigator.vibrate(10);
 }
 
+// Allows tapping inner buttons (like dashboard stats) to jump to main tabs
+function switchTab(targetScreen) {
+    const navMap = { 'home': 0, 'fitness': 1, 'nutrition': 2, 'coach': 3, 'community': 4 };
+    const navItems = document.querySelectorAll('.nav-item');
+    if (navMap[targetScreen] !== undefined) {
+        switchNav(targetScreen, navItems[navMap[targetScreen]]);
+    }
+}
+
 function switchNutrTab(targetView, tabElement) {
-    // Reset tabs
     const tabs = document.querySelectorAll('.ntab');
     tabs.forEach(tab => tab.classList.remove('active'));
     tabElement.classList.add('active');
 
-    // Hide views
     const views = document.querySelectorAll('.nview');
     views.forEach(view => view.classList.remove('active'));
-
-    // Show target
     document.getElementById(`nv-${targetView}`).classList.add('active');
 }
 
 // ==========================================
-// 3. MODAL HANDLERS
+// 3. HABITS & HYDRATION ENGINE
 // ==========================================
+function toggleHabit(element) {
+    element.classList.toggle('done');
+    const xpElement = element.querySelector('.h-xp');
+    const hMeta = element.querySelector('.h-meta');
+    
+    if (element.classList.contains('done')) {
+        if(xpElement) xpElement.style.opacity = '1';
+        if(hMeta) hMeta.style.color = 'var(--accent)';
+        if(navigator.vibrate) navigator.vibrate([15, 30]);
+    } else {
+        if(xpElement) xpElement.style.opacity = '0';
+        if(hMeta) hMeta.style.color = 'var(--text-muted)';
+        if(navigator.vibrate) navigator.vibrate(10);
+    }
+}
 
+function toggleWater(index) {
+    const glasses = document.querySelectorAll('.wt-glass');
+    glasses[index].classList.toggle('filled');
+    
+    let count = 0;
+    glasses.forEach(glass => { if (glass.classList.contains('filled')) count++; });
+    const countEl = document.getElementById('waterCount');
+    if(countEl) countEl.innerText = count;
+    
+    if(navigator.vibrate) navigator.vibrate(10);
+}
+
+// ==========================================
+// 4. FITNESS GENERATOR STATE LOGIC
+// ==========================================
+function selType(type) {
+    document.querySelectorAll('.type-card').forEach(el => el.classList.remove('selected'));
+    document.querySelectorAll('.type-check').forEach(el => el.innerHTML = '');
+    document.getElementById(`type-${type}`).classList.add('selected');
+    document.getElementById(`tc-${type}`).innerHTML = '✓';
+    if(navigator.vibrate) navigator.vibrate(10);
+}
+
+function selSplit(split) {
+    document.querySelectorAll('.split-card').forEach(el => el.classList.remove('selected'));
+    document.querySelectorAll('.split-check').forEach(el => el.innerHTML = '');
+    document.getElementById(`sp-${split}`).classList.add('selected');
+    document.getElementById(`sc-${split}`).innerHTML = '✓';
+    if(navigator.vibrate) navigator.vibrate(10);
+}
+
+function selLevel(level) {
+    document.querySelectorAll('.lvl-btn').forEach(el => el.classList.remove('selected'));
+    document.getElementById(`lv-${level}`).classList.add('selected');
+    if(navigator.vibrate) navigator.vibrate(10);
+}
+
+function generateWorkout() {
+    alert("Risn AI: Generating your custom protocol based on selected parameters...");
+    if(navigator.vibrate) navigator.vibrate([20, 50, 20]);
+}
+
+// ==========================================
+// 5. MODAL HANDLERS
+// ==========================================
 function openModal(modalId) {
-    document.getElementById(modalId).classList.add('active');
+    const modal = document.getElementById(modalId);
+    if(modal) {
+        modal.style.display = 'flex';
+        modal.classList.add('active', 'show'); 
+    }
     if(navigator.vibrate) navigator.vibrate(15);
 }
 
 function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
+    const modal = document.getElementById(modalId);
+    if(modal) {
+        modal.classList.remove('active', 'show');
+        setTimeout(() => { modal.style.display = 'none'; }, 300);
+    }
 }
 
-// Mock functions for intercepts
 function applySwap() {
     closeModal('swap-interceptor-modal');
     alert("Hack Applied: Macros updated in daily log.");
-}
-
-function triggerFailureHaptic() {
-    // Deep double vibration for the final set
-    if(navigator.vibrate) navigator.vibrate([200, 100, 300]);
-    alert("MANDATE TRIGGERED: Leave absolutely nothing in the tank. Remember your Anchor.");
 }
